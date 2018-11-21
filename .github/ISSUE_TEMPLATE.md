@@ -8,13 +8,6 @@
 ## Feature Requests:
 * [ ] Have you explained your rationale for why this feature is needed? 
 * [ ] Have you offered a proposed implementation/solution? 
-<<<<<<< HEAD
-=======
-
-----
-
-## Bug Reporting
->>>>>>> reorder for better flow
 
 ----
 
