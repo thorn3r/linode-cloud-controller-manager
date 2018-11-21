@@ -8,6 +8,13 @@
 ## Feature Requests:
 * [ ] Have you explained your rationale for why this feature is needed? 
 * [ ] Have you offered a proposed implementation/solution? 
+<<<<<<< HEAD
+=======
+
+----
+
+## Bug Reporting
+>>>>>>> reorder for better flow
 
 ----
 
@@ -25,10 +32,10 @@
 
 ### Environment Specifications
 
-#### Screenshots, Code Blocks, and Logs
+### Screenshots, Code Blocks, and Logs
 
-#### Additional Notes
+### Additional Notes
 
 ----
-
+ 
 The [Linode Community](https://www.linode.com/community/questions/) is a great place to get additional support.
