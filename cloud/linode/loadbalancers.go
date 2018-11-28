@@ -405,7 +405,7 @@ func (l *loadbalancers) buildLoadBalancerRequest(ctx context.Context, service *v
 		}
 
 		for _, n := range nodes {
-			node := l.buildNodeBalancerNode(n, port)
+			node := l.buildNodeBalancerNode(n, port.NodePort)
 
 			createOpt := node.GetCreateOptions()
 			if _, err := l.client.CreateNodeBalancerNode(ctx, lb, nbConfig.ID, createOpt); err != nil {
