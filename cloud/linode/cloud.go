@@ -57,7 +57,7 @@ func newCloud() (cloudprovider.Interface, error) {
 	}
 
 	linodeClient := linodego.NewClient(oauth2Client)
-	linodeClient.SetDebug(true)
+	// linodeClient.SetDebug(true)
 
 	// Return struct that satisfies cloudprovider.Interface
 	return &linodeCloud{
