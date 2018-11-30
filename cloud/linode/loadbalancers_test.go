@@ -718,6 +718,8 @@ func testEnsureLoadBalancer(t *testing.T, client *linodego.Client) {
 	for _, test := range testcases {
 		t.Run(test.name, func(t *testing.T) {
 			lbStatus, err := lb.EnsureLoadBalancer(context.TODO(), test.clusterName, test.service, test.nodes)
+			fmt.Printf("%+v\n", lbStatus)
+			fmt.Printf("%+v\n", err)
 			if lbStatus.Ingress[0].IP != test.nbIP {
 				t.Error("unexpected error")
 				t.Logf("expected: %v", test.nbIP)
