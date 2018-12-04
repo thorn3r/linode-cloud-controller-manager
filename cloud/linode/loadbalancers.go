@@ -136,7 +136,15 @@ func (l *loadbalancers) UpdateLoadBalancer(ctx context.Context, clusterName stri
 		return err
 	}
 
-	nbConfigs, err := l.client.ListNodeBalancerConfigs(ctx, lb.ID, nil)
+	nb, err := l.lbByName(ctx, l.client, lbName)
+	if err != nil {
+		return err
+	}
+	jsonFilter, err := json.Marshal(map[string]string{"nodebalancer_id": strconv.Itoa(nb.ID)})
+	if err != nil {
+		return err
+	}
+	nbConfigs, err := l.client.ListNodeBalancerConfigs(ctx, lb.ID, linodego.NewListOptions(0, string(jsonFilter)))
 	if err != nil {
 		return err
 	}
@@ -186,10 +194,18 @@ func (l *loadbalancers) UpdateLoadBalancer(ctx context.Context, clusterName stri
 
 				_, err = l.client.UpdateNodeBalancerConfig(ctx, lb.ID, nbc.ID, opt.GetUpdateOptions())
 				if err != nil {
-					return fmt.Errorf("Error updating NodeBalancer config: %v", err)
+					return err
 				}
 
-				nodeList, err := l.client.ListNodeBalancerNodes(ctx, lb.ID, nbc.ID, nil)
+				jsonFilter, err := json.Marshal(map[string]string{
+					"nodebalancer_id": strconv.Itoa(nb.ID),
+					"config_id":       strconv.Itoa(nbc.ID),
+				})
+				if err != nil {
+					return err
+				}
+
+				nodeList, err := l.client.ListNodeBalancerNodes(ctx, lb.ID, nbc.ID, linodego.NewListOptions(0, string(jsonFilter)))
 				if err != nil {
 					return err
 				}
