@@ -33,6 +33,9 @@ Tips for a faster merge:
  * make sure that tests pass.
  * make sure your commits are atomic, [addressing one change per commit](https://chris.beams.io/posts/git-commit/). 
  * add tests!
+ * save your large formatting changes for a different PR, so we can focus on your work
+ * explain your rationale for why this feature is needed
+ * link your PR to an [open issue](https://blog.github.com/2013-05-14-closing-issues-via-pull-requests/)
 
 ## Code of Conduct
 
