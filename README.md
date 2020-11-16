@@ -44,6 +44,7 @@ Annotation (Suffix) | Values | Default | Description
 ---|---|---|---
 `throttle` | `0`-`20` (`0` to disable) | `20` | Client Connection Throttle, which limits the number of subsequent new connections per second from the same client IP
 `default-protocol` | `tcp`, `http`, `https` | `tcp` | This annotation is used to specify the default protocol for Linode NodeBalancer.
+`proxy-protocol` | `none`, `v1`, `v2` | `none` | Specifies whether to use a version of Proxy Protocol on the underlying NodeBalancer
 `port-*` | json (e.g. `{ "tls-secret-name": "prod-app-tls", "protocol": "https"}`) | | Specifies the secret and protocol for a port corresponding secrets. The secret type should be `kubernetes.io/tls`. `*` is the port being configured, e.g. `linode-loadbalancer-port-443`
 `check-type` | `none`, `connection`, `http`, `http_body` | | The type of health check to perform against back-ends to ensure they are serving requests
 `check-path` | string | | The URL path to check on each back-end during health checks
@@ -52,7 +53,8 @@ Annotation (Suffix) | Values | Default | Description
 `check-timeout` | int (1-30) | | Duration, in seconds, to wait for a health check to succeed before considering it a failure
 `check-attempts` | int (1-30) | | Number of health check failures necessary to remove a back-end from the service
 `check-passive` | [bool](#annotation-bool-values) | `false` | When `true`, `5xx` status codes will cause the health check to fail
-`preserve` | [bool](#annotation-bool-values) | `false` | When `true`, deleting a `LoadBalancer` service does not delete the underlying NodeBalancer
+`preserve` | [bool](#annotation-bool-values) | `false` | When `true`, deleting a `LoadBalancer` service does not delete the underlying NodeBalancer. This will also prevent deletion of the former LoadBalancer when another one is specified with the `nodebalancer-id` annotation.
+`nodebalancer-id` | string | | The ID of the NodeBalancer to front the service. When not specified, a new NodeBalancer will be created. This can be configured on service creation or patching
 
 #### Deprecated Annotations
 
@@ -251,7 +253,7 @@ dep ensure
 
 #### Building Docker images
 
-To build and push a Docker image, use the following make targets. 
+To build and push a Docker image, use the following make targets.
 
 ```bash
 # Set the repo/image:tag with the TAG environment variable
