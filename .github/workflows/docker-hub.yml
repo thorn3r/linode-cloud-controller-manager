@@ -10,7 +10,7 @@ jobs:
     - name: Build
       run: make build-linux
     - name: Publish latest to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         name: linode/linode-cloud-controller-manager
         username: ${{ secrets.DOCKER_USERNAME }}
